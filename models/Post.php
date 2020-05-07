@@ -13,7 +13,7 @@
     public $author;
     public $created_at;
 
-    // constructor
+    // constructor with DB
     public function __construct($db){
       $this->conn = $db;
     }
@@ -29,13 +29,14 @@
             p.body,
             p.author,
             p.created_at
-            FROM
+          FROM
             ' . $this->table . ' p
-            LEFT JOIN
-              categories c ON p.category_id = c.id
-            ORDER BY
-              p.created_at DESC';
-      // prepared PDOStatement
+          LEFT JOIN
+            categories c ON p.category_id = c.id
+          ORDER BY
+            p.created_at DESC';
+
+      // prepared PDO Statement
       $stmt = $this->conn->prepare($query);
 
       // Execute query
@@ -43,5 +44,6 @@
 
       return $stmt;
     }
+
 
   }
